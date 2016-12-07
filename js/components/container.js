@@ -5,31 +5,27 @@ import List from './list';
 export default class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {username:'Jamie', repositories:['Carlo','Chris','Casey']};
+    this.state = {username:'', repositories:['Carlo','Chris','Casey']};
+    this.userName = this.userName.bind(this);
+    this.onAddSubmit = this.onAddSubmit.bind(this);
   }
-  fetchApi() { 
-  const url = new URL('https://api.github.com');
-  const data = {
-      users: 'carlo-jesena',
-  };
-  Object.keys(data).forEach(key => url.searchParams.append(key, data[key]));
 
-  fetch(url).then(response => {
-    if (!response.ok) {
-      return Promise.reject(response.statusText);
-    }
-    return response.json();
-  }).then(response => {
-    console.log(response.Search[0].Title);
-  }).catch(err => {
-    console.error(err);
-  });
-};
+  userName(event) {
+    this.setState({username: event.target.value});
+      //let results = fetch(`https://api.github.com/users/${term}/repos`)
+      //console.log(results);
+      console.log(this.state.username);
+  };
+
+  onAddSubmit(event){
+    event.preventDefault();
+    console.log('ready to fetch api in onAddSubmit function')
+  }
 
   render() {
     return(
       <div className = 'Container'>
-        <Search />
+        <Search onInputChange={this.userName} onInputSubmit={this.onAddSubmit}/>
         <List name = {this.state.username} repos = {this.state.repositories} />
       </div>
     );

@@ -7,8 +7,8 @@ export default function Search(props) {
 
     <div className = 'form'>
       <form>
-        <input type = 'text' />
-        <button type = 'submit'>Search</button>
+        <input type = 'text' onChange={props.onInputChange}/>
+        <button type = 'submit' onClick={props.onInputSubmit}>Search</button>
       </form>
     </div>
   );
